@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script>
+    const socket = io('http://localhost:4000');
+    let currentIndex = 0
+    let score = []
+    socket.on('hello', (data) => {
+      console.log(`[SERVER] ${data}`)
+    })
+    socket.on('score', score => {
+      this.score = JSON.parse(score)
+      console.log(`New score ${this.score.name} (${this.score.duration})`)
+      document.getElementById('title').innerHTML = `${this.score.name} (${this.score.duration})`
+    })
+    socket.on('heartbeat', payload => {
+      const [currentIndex, beat] = JSON.parse(payload)
+      if (this.score.duration > 0) {
+        let color = 'red'
+        if (+beat) {
+          color = 'green'
+        }
+        console.log(`heartbeat [${currentIndex}, ${beat}] => ${color}`)
+        document.getElementById('tarte').style.backgroundColor = color
+      }
+    })
+  </script>
+</head>
+<body>
+
+  <h1 id="title"></h1>
+  <div id="tarte" style="width: 10px; height: 800px"></div>
+  
+</body>
+</html>
