@@ -10,7 +10,7 @@ export class Socket {
 
     this.score = null
 
-    this.currentTickInterval = setInterval(this.tick.bind(this), 1000)
+    this.currentTickInterval = setInterval(this.tick.bind(this), 3000)
   }
 
   tick() {
