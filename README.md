@@ -1,6 +1,7 @@
 # flash-de-la-vie
 
 ```
+yarn install
 yarn start
 ```
 
